@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,12 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// 商品一覧画面
+Route::get('/', [ItemController::class, 'index']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/mypage/profile', function () {
         return view('mypage.profile');
     });
 });
+
+// 商品詳細画面
+Route::get('/item/{item_id}', [ItemController::class, 'show']);

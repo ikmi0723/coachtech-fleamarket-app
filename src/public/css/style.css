@@ -1,0 +1,402 @@
+/* =========================
+    リセット・共通設定
+   ========================= */
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* =========================
+   ヘッダー共通
+   - ログイン後画面のヘッダー
+   - 商品一覧画面などで使用
+   ========================= */
+.header {
+    background: #000;
+    height: 82px;
+    display: flex;
+    align-items: center;
+}
+
+.header-inner {
+    width: 100%;
+    padding: 0 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+/* ロゴ画像 */
+.logo img {
+    height: 36px;
+    display: block;
+}
+
+/* ヘッダー中央の検索フォーム */
+.search input {
+    width: 500px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    padding: 0 16px;
+    font-size: 16px;
+}
+
+/* ヘッダー右側のナビゲーション */
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* 出品ボタン */
+.sell-btn {
+    background: #fff;
+    color: #000 !important;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 18px;
+}
+
+/* =========================
+   認証画面共通
+   - ログイン画面
+   - 会員登録画面
+   ========================= */
+.auth-container {
+    width: 500px;
+    margin: 120px auto;
+}
+
+.auth-container h2 {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+/* フォーム1項目ごとの余白 */
+.form-group {
+    margin-bottom: 30px;
+}
+
+/* 入力項目ラベル */
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* 入力欄 */
+.form-group input {
+    width: 100%;
+    height: 45px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 0 10px;
+}
+
+/* 主要ボタン（ログイン・登録など） */
+.btn-primary {
+    width: 100%;
+    height: 50px;
+    background: #ff5a5a;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* ログインはこちら / 会員登録はこちら */
+.auth-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.auth-link a {
+    color: #007bff;
+}
+
+/* バリデーションエラーメッセージ */
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* =========================
+   商品一覧画面
+   ========================= */
+.items-wrapper {
+    width: 100%;
+    margin: 38px 0 0;
+}
+
+/* おすすめ / マイリスト タブ */
+.items-tabs {
+    display: flex;
+    gap: 88px;
+    padding: 0 170px 8px;
+    border-bottom: 1px solid #6f6f6f;
+    box-sizing: border-box;
+}
+
+.tab {
+    font-size: 18px;
+    color: #666;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* 選択中タブ */
+.tab.active {
+    color: #ff0000;
+}
+
+/* 商品カード一覧の並び */
+.items-container {
+    width: 100%;
+    max-width: 1500px;
+    margin: 68px auto 0;
+    padding: 0 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 58px 42px;
+    box-sizing: border-box;
+}
+
+/* 商品カード1件分 */
+.item-card {
+    width: 250px;
+}
+
+/* 商品画像 */
+.item-image img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    background: #d9d9d9;
+}
+
+/* 商品名 */
+.item-name {
+    margin-top: 10px;
+    font-size: 22px;
+    line-height: 1.3;
+    color: #000;
+    font-weight: 400;
+}
+
+/* 商品カードのリンク */
+.item-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+/* =========================
+   商品詳細画面
+   ========================= */
+.detail-wrapper {
+    width: 100%;
+    padding: 60px 0 100px;
+}
+
+.detail-container {
+    width: 90%;
+    max-width: 1380px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+}
+
+/* 商品画像エリア
+   - 左側の画像は少し大きいが、Figmaに合わせてやや抑える */
+.detail-image {
+    width: 46%;
+}
+
+.detail-image img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    background: #d9d9d9;
+}
+
+/* 商品情報エリア
+   - 右側の情報を少し広めに取る */
+.detail-content {
+    width: 50%;
+}
+
+/* 商品名 */
+.detail-name {
+    margin: 0;
+    font-size: 42px;
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+/* ブランド名 */
+.detail-brand {
+    margin: 8px 0 24px;
+    font-size: 20px;
+    color: #000;
+}
+
+/* 価格 */
+.detail-price {
+    margin: 0 0 28px;
+    font-size: 30px;
+    font-weight: 400;
+}
+
+/* いいね・コメントアイコン表示 */
+.detail-icons {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 28px;
+}
+
+.detail-icon-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.detail-icon-box img {
+    width: 36px;
+    height: 36px;
+    display: block;
+}
+
+.detail-icon-box span {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* 購入ボタン */
+.detail-purchase-btn {
+    width: 100%;
+    height: 56px;
+    border: none;
+    border-radius: 4px;
+    background: #ff5a5a;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 40px;
+}
+
+/* 詳細セクション共通 */
+.detail-section {
+    margin-bottom: 38px;
+}
+
+.detail-section-title {
+    margin: 0 0 18px;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+/* 商品説明文 */
+.detail-description {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.7;
+}
+
+/* 商品情報の行 */
+.detail-info-row {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 18px;
+}
+
+.detail-info-label {
+    font-size: 24px;
+    font-weight: 700;
+    min-width: 140px;
+}
+
+.detail-info-value {
+    font-size: 20px;
+}
+
+/* 商品状態バッジ */
+.detail-info-badge {
+    display: inline-block;
+    padding: 4px 18px;
+    border-radius: 20px;
+    background: #d9d9d9;
+    font-size: 16px;
+}
+
+/* コメント入力欄 */
+.detail-comment-form {
+    margin-top: 10px;
+}
+
+.detail-comment-label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.detail-comment-textarea {
+    width: 100%;
+    height: 180px;
+    padding: 12px;
+    border: 1px solid #5f5f5f;
+    border-radius: 4px;
+    resize: none;
+    box-sizing: border-box;
+}
+
+/* コメント送信ボタン */
+.detail-comment-btn {
+    width: 100%;
+    height: 56px;
+    margin-top: 28px;
+    border: none;
+    border-radius: 4px;
+    background: #ff5a5a;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* 商品カテゴリ一覧 */
+.detail-category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* 商品カテゴリのバッジ */
+.detail-category-badge {
+    display: inline-block;
+    padding: 4px 16px;
+    border-radius: 20px;
+    background: #d9d9d9;
+    font-size: 16px;
+}

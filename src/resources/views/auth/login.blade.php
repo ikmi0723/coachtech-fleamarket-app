@@ -1,28 +1,33 @@
-<h1>ログイン</h1>
+@extends('layouts.auth')
 
-<form method="POST" action="{{ route('login') }}">
-    @csrf
+@section('content')
+<div class="auth-container">
+    <h2>ログイン</h2>
 
-    <div>
-        <label>メールアドレス</label>
-        <input type="email" name="email">
-        @error('email')
-        <div style="color:red">{{ $message }}</div>
-        @enderror
-    </div>
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
 
-    <div>
-        <label>パスワード</label>
-        <input type="password" name="password">
-        @error('password')
-        <div style="color:red">{{ $message }}</div>
-        @enderror
-    </div>
+        <div class="form-group">
+            <label>メールアドレス</label>
+            <input type="email" name="email">
+            @error('email')
+            <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
 
-    <button type="submit">ログイン</button>
-</form>
+        <div class="form-group">
+            <label>パスワード</label>
+            <input type="password" name="password">
+            @error('password')
+            <p class="error">{{ $message }}</p>
+            @enderror
+        </div>
 
-<form method="POST" action="{{ route('logout') }}">
-    @csrf
-    <button type="submit">ログアウト</button>
-</form>
+        <button class="btn-primary">ログインする</button>
+    </form>
+
+    <p class="auth-link">
+        <a href="{{ route('register') }}">会員登録はこちら</a>
+    </p>
+</div>
+@endsection

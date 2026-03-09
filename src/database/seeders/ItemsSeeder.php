@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
+use App\Models\Category;
 use App\Models\Item;
 use App\Models\User;
+use Illuminate\Database\Seeder;
+
 
 class ItemsSeeder extends Seeder
 {
@@ -17,7 +19,7 @@ class ItemsSeeder extends Seeder
     {
         $user = User::first();
 
-        Item::create([
+        $item = Item::create([
             'user_id' => $user->id,
             'name' => '腕時計',
             'brand' => 'Rolax',
@@ -26,5 +28,9 @@ class ItemsSeeder extends Seeder
             'condition' => '良好',
             'image_path' => 'watch.jpg'
         ]);
+
+        // 商品にカテゴリを紐づける
+        $categoryIds = Category::whereIn('name', ['ファッション'])->pluck('id');
+        $item->categories()->attach($categoryIds);
     }
 }
