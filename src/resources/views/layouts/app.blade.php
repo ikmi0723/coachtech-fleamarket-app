@@ -12,18 +12,30 @@
 
     <header class="header">
         <div class="header-inner">
+            {{-- ロゴ --}}
             <div class="logo">
                 <img src="{{ asset('images/logo.png') }}" alt="COACHTECH">
             </div>
 
-            <div class="search">
-                <input type="text" placeholder="なにをお探しですか？">
-            </div>
+            {{-- 商品検索フォーム --}}
+            <form class="search" action="{{ url('/') }}" method="GET">
+                <input
+                    type="text"
+                    name="keyword"
+                    placeholder="なにをお探しですか？"
+                    value="{{ request('keyword') }}">
+            </form>
 
+            {{-- 右側ナビ --}}
             <nav class="nav">
-                <a href="#">ログアウト</a>
-                <a href="#">マイページ</a>
-                <a href="#" class="sell-btn">出品</a>
+                {{-- ログアウトは POST で送信する --}}
+                <form action="{{ route('logout') }}" method="POST" class="logout-form">
+                    @csrf
+                    <button type="submit" class="logout-button">ログアウト</button>
+                </form>
+
+                <a href="{{ url('/mypage/profile') }}">マイページ</a>
+                <a href="{{ url('/sell') }}" class="sell-btn">出品</a>
             </nav>
         </div>
     </header>

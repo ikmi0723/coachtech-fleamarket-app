@@ -16,10 +16,18 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
+        // 商品出品者その1
         User::create([
-            'name' => 'テストユーザー',
-            'email' => 'test@example.com',
-            'password' => Hash::make('password'),
+            'name' => 'テストユーザー1',
+            'email' => 'user1@example.com',
+            'password' => Hash::make('password123'),
+        ]);
+
+        // 商品出品者その2
+        User::create([
+            'name' => 'テストユーザー2',
+            'email' => 'user2@example.com',
+            'password' => Hash::make('password123'),
         ]);
     }
 }

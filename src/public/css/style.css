@@ -55,10 +55,34 @@ body {
     gap: 28px;
 }
 
-.nav a {
+/* ナビ内リンクとログアウトボタンの文字共通 */
+.nav a,
+.logout-button {
     color: #fff;
     text-decoration: none;
     font-size: 18px;
+    font-weight: 400;
+    line-height: 1;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+/* ログアウトフォーム */
+.logout-form {
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* ログアウトボタンをリンク風に見せる */
+.logout-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
 }
 
 /* 出品ボタン */
@@ -157,6 +181,7 @@ body {
     color: #666;
     font-weight: 700;
     line-height: 1;
+    text-decoration: none;
 }
 
 /* 選択中タブ */
@@ -225,16 +250,32 @@ body {
 
 /* 商品画像エリア
    - 左側の画像は少し大きいが、Figmaに合わせてやや抑える */
-.detail-image {
-    width: 46%;
+.item-image {
+    position: relative;
 }
 
-.detail-image img {
+/* 商品画像 */
+.item-image img {
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
     display: block;
     background: #d9d9d9;
+}
+
+/* 購入済み商品の Sold ラベル */
+.sold-label {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    display: inline-block;
+    padding: 6px 14px;
+    background: #ff0000;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 4px;
+    z-index: 1;
 }
 
 /* 商品情報エリア
@@ -288,6 +329,16 @@ body {
 .detail-icon-box span {
     font-size: 18px;
     font-weight: 700;
+}
+
+/* いいねボタン
+   - button の見た目を消してアイコンだけ押せるようにする */
+.like-button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
 }
 
 /* 購入ボタン */
@@ -399,4 +450,10 @@ body {
     border-radius: 20px;
     background: #d9d9d9;
     font-size: 16px;
+}
+
+/* 検索結果が0件のときのメッセージ */
+.items-empty {
+    font-size: 20px;
+    color: #666;
 }

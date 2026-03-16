@@ -24,26 +24,41 @@ class Item extends Model
         'image_path'
     ];
 
+    /**
+     * 出品ユーザー
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * カテゴリ
+     */
     public function categories()
     {
         return $this->belongsToMany(Category::class);
     }
 
+    /**
+     * コメント
+     */
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
 
+    /**
+     * いいね
+     */
     public function likes()
     {
         return $this->hasMany(Like::class);
     }
 
+    /**
+     * 購入情報
+     */
     public function purchase()
     {
         return $this->hasOne(Purchase::class);

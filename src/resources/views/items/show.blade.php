@@ -21,14 +21,26 @@
             {{-- 価格 --}}
             <p class="detail-price">¥{{ number_format($item->price) }}（税込）</p>
 
-            {{-- いいね数・コメント数表示エリア
-                 今は仮で0を表示し、後でロジックをつなぐ --}}
+            {{-- いいね数・コメント数表示エリア--}}
             <div class="detail-icons">
+
+                {{-- いいねアイコン --}}
                 <div class="detail-icon-box">
-                    <img src="{{ asset('images/icon-heart-default.png') }}" alt="いいね">
-                    <span>0</span>
+                    <form action="{{ url('/item/' . $item->id . '/like') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="like-button">
+                            @if ($isLiked)
+                            <img src="{{ asset('images/icon-heart-active.png') }}" alt="いいね済み">
+                            @else
+                            <img src="{{ asset('images/icon-heart-default.png') }}" alt="いいね">
+                            @endif
+                        </button>
+                    </form>
+
+                    <span>{{ $item->likes->count() }}</span>
                 </div>
 
+                {{-- コメントアイコン --}}
                 <div class="detail-icon-box">
                     <img src="{{ asset('images/icon-comment.png') }}" alt="コメント">
                     <span>0</span>

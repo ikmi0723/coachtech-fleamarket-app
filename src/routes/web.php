@@ -25,3 +25,8 @@ Route::middleware(['auth'])->group(function () {
 
 // 商品詳細画面
 Route::get('/item/{item_id}', [ItemController::class, 'show']);
+
+// いいね登録・解除
+Route::middleware('auth')->group(function () {
+    Route::post('/item/{item_id}/like', [ItemController::class, 'toggleLike']);
+});
