@@ -400,6 +400,32 @@ body {
     font-size: 16px;
 }
 
+/* コメント一覧 */
+.detail-comment-list {
+    margin-bottom: 30px;
+}
+
+.detail-comment-item {
+    margin-bottom: 20px;
+}
+
+/* コメントしたユーザー名 */
+.detail-comment-user {
+    margin: 0 0 8px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* コメント本文 */
+.detail-comment-body {
+    margin: 0;
+    padding: 16px;
+    background: #f5f5f5;
+    border-radius: 4px;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
 /* コメント入力欄 */
 .detail-comment-form {
     margin-top: 10px;

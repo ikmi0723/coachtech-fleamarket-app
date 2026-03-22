@@ -18,11 +18,17 @@ class Comment extends Model
         'content'
     ];
 
+    /**
+     * コメントしたユーザー
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * コメント対象の商品
+     */
     public function item()
     {
         return $this->belongsTo(Item::class);

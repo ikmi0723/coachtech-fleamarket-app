@@ -43,7 +43,7 @@
                 {{-- コメントアイコン --}}
                 <div class="detail-icon-box">
                     <img src="{{ asset('images/icon-comment.png') }}" alt="コメント">
-                    <span>0</span>
+                    <span>{{ $item->comments->count() }}</span>
                 </div>
             </div>
 
@@ -79,18 +79,36 @@
                 </div>
             </div>
 
-            {{-- コメントエリア
-                 今はまだコメント未実装なので入力欄だけ骨組みを作る --}}
+            {{-- コメントエリア --}}
             <div class="detail-section">
-                <h2 class="detail-section-title">コメント(0)</h2>
+                <h2 class="detail-section-title">コメント({{ $item->comments->count() }})</h2>
 
+                {{-- コメント一覧 --}}
+                <div class="detail-comment-list">
+                    @foreach ($item->comments as $comment)
+                    <div class="detail-comment-item">
+                        <p class="detail-comment-user">{{ $comment->user->name }}</p>
+                        <p class="detail-comment-body">{{ $comment->content }}</p>
+                    </div>
+                    @endforeach
+                </div>
+
+                {{-- コメント入力フォーム --}}
                 <div class="detail-comment-form">
-                    <label class="detail-comment-label" for="comment">商品へのコメント</label>
-                    <textarea id="comment" class="detail-comment-textarea"></textarea>
-                    <button class="detail-comment-btn">コメントを送信する</button>
+                    <form action="{{ url('/item/' . $item->id . '/comment') }}" method="POST" novalidate>
+                        @csrf
+
+                        <label class="detail-comment-label" for="content">商品へのコメント</label>
+                        <textarea id="content" name="content" class="detail-comment-textarea">{{ old('content') }}</textarea>
+
+                        @error('content')
+                        <p class="error">{{ $message }}</p>
+                        @enderror
+
+                        <button type="submit" class="detail-comment-btn">コメントを送信する</button>
+                    </form>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

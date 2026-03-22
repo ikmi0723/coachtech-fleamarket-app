@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentRequest;
 use App\Models\Item;
 use App\Models\Like;
 use Illuminate\Http\Request;
@@ -64,8 +65,8 @@ class ItemController extends Controller
      */
     public function show($item_id)
     {
-        // 商品と一緒にカテゴリ情報・いいね情報も取得する
-        $item = Item::with(['categories', 'likes'])->findOrFail($item_id);
+        // 商品と一緒にカテゴリ情報・いいね情報・コメント情報も取得する
+        $item = Item::with(['categories', 'likes', 'comments.user'])->findOrFail($item_id);
 
         // ログイン中ユーザーがこの商品にいいね済みかどうかを判定
         $isLiked = false;
@@ -97,6 +98,21 @@ class ItemController extends Controller
                 'item_id' => $item->id,
             ]);
         }
+
+        return redirect()->back();
+    }
+
+    /**
+     * コメント送信
+     */
+    public function storeComment(CommentRequest $request, $item_id)
+    {
+        $item = Item::findOrFail($item_id);
+
+        $item->comments()->create([
+            'user_id' => Auth::id(),
+            'content' => $request->input('content'),
+        ]);
 
         return redirect()->back();
     }

@@ -29,4 +29,7 @@ Route::get('/item/{item_id}', [ItemController::class, 'show']);
 // いいね登録・解除
 Route::middleware('auth')->group(function () {
     Route::post('/item/{item_id}/like', [ItemController::class, 'toggleLike']);
+
+    // コメント送信
+    Route::post('/item/{item_id}/comment', [ItemController::class, 'storeComment']);
 });
