@@ -17,19 +17,20 @@ use App\Http\Controllers\ItemController;
 // 商品一覧画面
 Route::get('/', [ItemController::class, 'index']);
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/mypage/profile', function () {
-        return view('mypage.profile');
-    });
-});
-
 // 商品詳細画面
 Route::get('/item/{item_id}', [ItemController::class, 'show']);
 
-// いいね登録・解除
+// 認証必須の機能
 Route::middleware('auth')->group(function () {
+    // いいね登録・解除
     Route::post('/item/{item_id}/like', [ItemController::class, 'toggleLike']);
 
     // コメント送信
     Route::post('/item/{item_id}/comment', [ItemController::class, 'storeComment']);
+
+    // 出品画面表示
+    Route::get('/sell', [ItemController::class, 'create']);
+
+    // 出品保存
+    Route::post('/sell', [ItemController::class, 'store']);
 });

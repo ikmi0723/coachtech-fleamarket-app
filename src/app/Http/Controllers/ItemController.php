@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ExhibitionRequest;
 use App\Http\Requests\CommentRequest;
+use App\Models\Category;
 use App\Models\Item;
 use App\Models\Like;
 use Illuminate\Http\Request;
@@ -76,6 +78,40 @@ class ItemController extends Controller
         }
 
         return view('items.show', compact('item', 'isLiked'));
+    }
+
+    /**
+     * 出品画面を表示
+     */
+    public function create()
+    {
+        $categories = Category::all();
+
+        return view('items.create', compact('categories'));
+    }
+
+    /**
+     * 出品保存
+     */
+    public function store(ExhibitionRequest $request)
+    {
+        // 商品を保存
+        $item = Item::create([
+            'user_id' => Auth::id(),
+            'name' => $request->input('name'),
+            'brand' => $request->input('brand'),
+            'description' => $request->input('description'),
+            'price' => $request->input('price'),
+            'condition' => $request->input('condition'),
+            // 画像アップロード未実装のため仮の値を保存
+            'image_path' => 'noimage.png',
+        ]);
+
+        // 選択されたカテゴリを中間テーブルに保存
+        $item->categories()->attach($request->input('categories'));
+
+        // 保存後は商品一覧へリダイレクト
+        return redirect('/');
     }
 
     /**
