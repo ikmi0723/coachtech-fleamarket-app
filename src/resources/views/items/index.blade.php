@@ -29,7 +29,7 @@
                     <span class="sold-label">Sold</span>
                     @endif
 
-                    <img src="{{ asset('images/noimage.png') }}" alt="{{ $item->name }}">
+                    <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}">
                 </div>
 
                 <p class="item-name">{{ $item->name }}</p>

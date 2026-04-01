@@ -9,6 +9,8 @@ use App\Models\Item;
 use App\Models\Like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\PurchaseRequest;
+use App\Models\Purchase;
 
 class ItemController extends Controller
 {
@@ -95,6 +97,9 @@ class ItemController extends Controller
      */
     public function store(ExhibitionRequest $request)
     {
+        // 画像を storage/app/public/items に保存
+        $imagePath = $request->file('image')->store('items', 'public');
+
         // 商品を保存
         $item = Item::create([
             'user_id' => Auth::id(),
@@ -103,8 +108,7 @@ class ItemController extends Controller
             'description' => $request->input('description'),
             'price' => $request->input('price'),
             'condition' => $request->input('condition'),
-            // 画像アップロード未実装のため仮の値を保存
-            'image_path' => 'noimage.png',
+            'image_path' => $imagePath,
         ]);
 
         // 選択されたカテゴリを中間テーブルに保存
@@ -151,5 +155,35 @@ class ItemController extends Controller
         ]);
 
         return redirect()->back();
+    }
+
+    /**
+     * 購入画面を表示
+     */
+    public function purchase($item_id)
+    {
+        $item = Item::findOrFail($item_id);
+
+        return view('items.purchase', compact('item'));
+    }
+
+    /**
+     * 購入保存
+     */
+    public function storePurchase(PurchaseRequest $request, $item_id)
+    {
+        $item = Item::findOrFail($item_id);
+
+        Purchase::create([
+            'user_id' => Auth::id(),
+            'item_id' => $item->id,
+            'payment_method' => $request->input('payment_method'),
+            // 今は仮で固定値、後でプロフィール情報や住所変更と連動させる
+            'postcode' => '123-4567',
+            'address' => '東京都渋谷区1-1-1',
+            'building' => 'テストビル101',
+        ]);
+
+        return redirect('/');
     }
 }

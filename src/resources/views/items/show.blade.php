@@ -8,7 +8,7 @@
 
         {{-- 商品画像エリア --}}
         <div class="detail-image">
-            <img src="{{ asset('images/noimage.png') }}" alt="{{ $item->name }}">
+            <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}">
         </div>
 
         {{-- 商品情報エリア --}}
@@ -49,7 +49,9 @@
 
             {{-- 購入ボタン
                  後で購入画面へのリンクに変更予定 --}}
-            <button class="detail-purchase-btn">購入手続きへ</button>
+            <a href="{{ url('/purchase/' . $item->id) }}" class="detail-purchase-link">
+                <button type="button" class="detail-purchase-btn">購入手続きへ</button>
+            </a>
 
             {{-- 商品説明 --}}
             <div class="detail-section">

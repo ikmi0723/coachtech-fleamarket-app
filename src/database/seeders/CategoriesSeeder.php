@@ -18,9 +18,11 @@ class CategoriesSeeder extends Seeder
             'ファッション',
             '家電',
             '食品',
+            'キッチン',
             '本',
             'コスメ',
-            'スポーツ'
+            'スポーツ',
+            '雑貨'
         ];
 
         foreach ($categories as $name) {

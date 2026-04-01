@@ -24,6 +24,7 @@ class ExhibitionRequest extends FormRequest
     public function rules()
     {
         return [
+            'image' => ['required', 'mimes:jpeg,png'],
             'name' => ['required'],
             'description' => ['required', 'max:255'],
             'categories' => ['required', 'array'],
@@ -38,6 +39,8 @@ class ExhibitionRequest extends FormRequest
     public function messages()
     {
         return [
+            'image.required' => '商品画像を選択してください',
+            'image.mimes' => '商品画像は.jpegもしくは.png形式でアップロードしてください',
             'name.required' => '商品名を入力してください',
             'description.required' => '商品の説明を入力してください',
             'description.max' => '商品の説明は255文字以内で入力してください',

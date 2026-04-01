@@ -33,4 +33,10 @@ Route::middleware('auth')->group(function () {
 
     // 出品保存
     Route::post('/sell', [ItemController::class, 'store']);
+
+    // 購入画面表示
+    Route::get('/purchase/{item_id}', [ItemController::class, 'purchase']);
+
+    // 購入保存
+    Route::post('/purchase/{item_id}', [ItemController::class, 'storePurchase']);
 });

@@ -5,15 +5,23 @@
     <div class="sell-container">
         <h1 class="sell-title">商品の出品</h1>
 
-        <form action="{{ url('/sell') }}" method="POST" class="sell-form">
+        <form action="{{ url('/sell') }}" method="POST" class="sell-form" enctype="multipart/form-data" novalidate>
             @csrf
 
             {{-- 商品画像 --}}
             <div class="sell-section">
                 <h2 class="sell-section-title">商品画像</h2>
+
                 <div class="sell-image-box">
-                    <button type="button" class="sell-image-button">画像を選択する</button>
+                    <label class="sell-image-button">
+                        画像を選択する
+                        <input type="file" name="image" class="sell-image-input">
+                    </label>
                 </div>
+
+                @error('image')
+                <p class="error">{{ $message }}</p>
+                @enderror
             </div>
 
             {{-- 商品の詳細 --}}
