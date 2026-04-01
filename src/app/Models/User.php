@@ -17,14 +17,15 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
+     * 一括代入を許可するカラム
      */
     protected $fillable = [
         'name',
         'email',
         'password',
+        'postcode',
+        'address',
+        'building',
     ];
 
     public function items()

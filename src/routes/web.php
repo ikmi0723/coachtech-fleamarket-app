@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,4 +40,16 @@ Route::middleware('auth')->group(function () {
 
     // 購入保存
     Route::post('/purchase/{item_id}', [ItemController::class, 'storePurchase']);
+
+    // 配送先変更画面表示
+    Route::get('/purchase/address/{item_id}', [ItemController::class, 'editAddress']);
+
+    // 配送先変更保存
+    Route::post('/purchase/address/{item_id}', [ItemController::class, 'updateAddress']);
+
+    // プロフィール編集画面表示
+    Route::get('/mypage/profile', [ProfileController::class, 'edit']);
+
+    // プロフィール更新
+    Route::post('/mypage/profile', [ProfileController::class, 'update']);
 });

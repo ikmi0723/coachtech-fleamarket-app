@@ -35,11 +35,16 @@
                 <div class="purchase-section">
                     <div class="purchase-address-header">
                         <p class="purchase-label">配送先</p>
-                        <a href="#" class="purchase-address-link">変更する</a>
+                        <a href="{{ url('/purchase/address/' . $item->id) }}" class="purchase-address-link">変更する</a>
                     </div>
 
-                    <p class="purchase-address-text">〒123-4567</p>
-                    <p class="purchase-address-text">東京都渋谷区1-1-1 テストビル101</p>
+                    <p class="purchase-address-text">
+                        〒{{ $shippingAddress['postcode'] ?? '未設定' }}
+                    </p>
+                    <p class="purchase-address-text">
+                        {{ $shippingAddress['address'] ?? '住所が登録されていません' }}
+                        {{ $shippingAddress['building'] ?? '' }}
+                    </p>
                 </div>
 
                 <button type="submit" class="purchase-submit-button">購入する</button>

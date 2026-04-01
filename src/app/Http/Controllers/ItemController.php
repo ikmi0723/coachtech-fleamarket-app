@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PurchaseRequest;
 use App\Models\Purchase;
+use App\Http\Requests\AddressRequest;
 
 class ItemController extends Controller
 {
@@ -164,7 +165,17 @@ class ItemController extends Controller
     {
         $item = Item::findOrFail($item_id);
 
-        return view('items.purchase', compact('item'));
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        // セッションに配送先変更情報があればそれを優先、なければプロフィール住所を使う
+        $shippingAddress = session('purchase_address_' . $item->id, [
+            'postcode' => $user->postcode,
+            'address' => $user->address,
+            'building' => $user->building,
+        ]);
+
+        return view('items.purchase', compact('item', 'shippingAddress'));
     }
 
     /**
@@ -174,16 +185,64 @@ class ItemController extends Controller
     {
         $item = Item::findOrFail($item_id);
 
-        Purchase::create([
-            'user_id' => Auth::id(),
-            'item_id' => $item->id,
-            'payment_method' => $request->input('payment_method'),
-            // 今は仮で固定値、後でプロフィール情報や住所変更と連動させる
-            'postcode' => '123-4567',
-            'address' => '東京都渋谷区1-1-1',
-            'building' => 'テストビル101',
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        $shippingAddress = session('purchase_address_' . $item->id, [
+            'postcode' => $user->postcode,
+            'address' => $user->address,
+            'building' => $user->building,
         ]);
 
+        Purchase::create([
+            'user_id' => $user->id,
+            'item_id' => $item->id,
+            'payment_method' => $request->input('payment_method'),
+            'postcode' => $shippingAddress['postcode'],
+            'address' => $shippingAddress['address'],
+            'building' => $shippingAddress['building'],
+        ]);
+
+        // 購入完了後は一時保存した配送先情報を削除
+        session()->forget('purchase_address_' . $item->id);
+
         return redirect('/');
+    }
+
+    /**
+     * 配送先変更画面を表示
+     */
+    public function editAddress($item_id)
+    {
+        $item = Item::findOrFail($item_id);
+
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        $address = session('purchase_address_' . $item->id, [
+            'postcode' => $user->postcode,
+            'address' => $user->address,
+            'building' => $user->building,
+        ]);
+
+        return view('items.address', compact('item', 'address'));
+    }
+
+    /**
+     * 配送先変更内容を一時保存する
+     */
+    public function updateAddress(AddressRequest $request, $item_id)
+    {
+        Item::findOrFail($item_id);
+
+        session([
+            'purchase_address_' . $item_id => [
+                'postcode' => $request->input('postcode'),
+                'address' => $request->input('address'),
+                'building' => $request->input('building'),
+            ],
+        ]);
+
+        return redirect('/purchase/' . $item_id);
     }
 }
