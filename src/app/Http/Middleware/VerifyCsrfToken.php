@@ -7,11 +7,11 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
 class VerifyCsrfToken extends Middleware
 {
     /**
-     * The URIs that should be excluded from CSRF verification.
+     * CSRF検証から除外するURI
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $except = [
-        //
+        'stripe/webhook',
     ];
 }

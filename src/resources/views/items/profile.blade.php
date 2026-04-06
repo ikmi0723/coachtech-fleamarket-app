@@ -5,8 +5,37 @@
     <div class="profile-container">
         <h1 class="profile-title">プロフィール設定</h1>
 
-        <form action="{{ url('/mypage/profile') }}" method="POST" class="profile-form" novalidate>
+        {{-- 画像アップロードがあるので enctype を追加 --}}
+        <form action="{{ url('/mypage/profile') }}" method="POST" enctype="multipart/form-data" class="profile-form" novalidate>
             @csrf
+
+            {{-- プロフィール画像エリア --}}
+            <div class="profile-image-group">
+                {{-- 現在のプロフィール画像があれば表示、なければダミー表示 --}}
+                @if (!empty($user->image_path))
+                <img
+                    src="{{ asset('storage/' . $user->image_path) }}"
+                    alt="プロフィール画像"
+                    class="profile-image-preview">
+                @else
+                <div class="profile-image-preview profile-image-preview--empty"></div>
+                @endif
+
+                {{-- 画像選択 --}}
+                <div class="profile-image-input-area">
+                    <label for="image" class="profile-image-select-button">画像を選択する</label>
+                    <input
+                        id="image"
+                        type="file"
+                        name="image"
+                        class="profile-image-input"
+                        accept=".jpg,.jpeg,.png">
+                </div>
+            </div>
+
+            @error('image')
+            <p class="error">{{ $message }}</p>
+            @enderror
 
             <div class="profile-form-group">
                 <label class="profile-label">ユーザー名</label>

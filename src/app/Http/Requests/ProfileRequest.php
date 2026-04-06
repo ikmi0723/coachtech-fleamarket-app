@@ -20,6 +20,9 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
+            // 画像は任意入力、jpeg/png のみ
+            'image' => ['nullable', 'image', 'mimes:jpeg,jpg,png'],
+
             'name' => ['required', 'max:20'],
             'postcode' => ['required', 'regex:/^\d{3}-\d{4}$/'],
             'address' => ['required'],

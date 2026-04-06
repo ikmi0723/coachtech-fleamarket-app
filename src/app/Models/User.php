@@ -26,6 +26,7 @@ class User extends Authenticatable
         'postcode',
         'address',
         'building',
+        'image_path',
     ];
 
     public function items()

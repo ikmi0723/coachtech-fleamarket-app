@@ -34,7 +34,7 @@
                     <button type="submit" class="logout-button">ログアウト</button>
                 </form>
 
-                <a href="{{ url('/mypage/profile') }}">マイページ</a>
+                <a href="{{ url('/mypage') }}">マイページ</a>
                 <a href="{{ url('/sell') }}" class="sell-btn">出品</a>
             </nav>
         </div>

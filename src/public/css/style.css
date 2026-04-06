@@ -295,6 +295,12 @@ body {
     width: 50%;
 }
 
+/* Sold を商品名の上に左揃えで表示するための余白 */
+.detail-sold-wrap {
+    margin-bottom: 12px;
+    text-align: left;
+}
+
 /* 商品名 */
 .detail-name {
     margin: 0;
@@ -315,6 +321,18 @@ body {
     margin: 0 0 28px;
     font-size: 30px;
     font-weight: 400;
+}
+
+/* Sold ラベル */
+.item-detail__sold {
+    display: inline-block;
+    padding: 4px 10px;
+    background-color: #ff5555;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-left: 0; /* 左に余計なずれを作らない */
 }
 
 /* いいね・コメントアイコン表示 */
@@ -493,6 +511,29 @@ body {
 .items-empty {
     font-size: 20px;
     color: #666;
+}
+
+/* フラッシュメッセージ共通 */
+.flash-message {
+    margin-bottom: 16px;
+    padding: 12px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* エラーメッセージは赤 */
+.flash-message--error {
+    background-color: #ffe5e5;
+    color: #d60000;
+    border: 1px solid #ffb3b3;
+}
+
+/* 成功メッセージは緑 */
+.flash-message--success {
+    background-color: #e8f7e8;
+    color: #1a7f37;
+    border: 1px solid #b7e1c1;
 }
 
 /* =========================
@@ -734,6 +775,58 @@ body {
 }
 
 /* =========================
+   プロフィール画像まわり
+   ========================= */
+
+/* 画像と「画像を選択する」ボタンを横並びにする */
+.profile-image-group {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+/* プロフィール画像の見た目 */
+.profile-image-preview {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+/* 画像未設定時のグレー丸 */
+.profile-image-preview--empty {
+    background-color: #d9d9d9;
+}
+
+/* ファイル選択の input 自体は非表示にする */
+.profile-image-input {
+    display: none;
+}
+
+/* 「画像を選択する」ボタン風の見た目 */
+.profile-image-select-button {
+    display: inline-block;
+    padding: 10px 18px;
+    border: 1px solid #ff5a5a;
+    border-radius: 8px;
+    color: #ff5a5a;
+    background-color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* エラーメッセージ */
+.error {
+    margin-top: 8px;
+    color: #ff5a5a;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* =========================
    プロフィール編集画面
    ========================= */
 .profile-wrapper {
@@ -743,7 +836,7 @@ body {
 
 .profile-container {
     width: 90%;
-    max-width: 700px;
+    max-width: 720px;
     margin: 0 auto;
 }
 
@@ -766,7 +859,7 @@ body {
 
 .profile-input {
     width: 100%;
-    height: 45px;
+    height: 48px;
     box-sizing: border-box;
     border: 1px solid #5f5f5f;
     border-radius: 4px;
@@ -784,4 +877,109 @@ body {
     font-size: 24px;
     font-weight: 700;
     cursor: pointer;
+}
+
+/* =========================
+   マイページ
+   ========================= */
+.mypage-wrapper {
+    width: 100%;
+    padding: 60px 0 100px;
+}
+
+.mypage-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.mypage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.mypage-user {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.mypage-user__image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+.mypage-user__image--empty {
+    background-color: #d9d9d9;
+}
+
+.mypage-user__name {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.mypage-edit-button {
+    display: inline-block;
+    padding: 12px 24px;
+    border: 1px solid #ff5a5a;
+    border-radius: 8px;
+    color: #ff5a5a;
+    background-color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.mypage-tabs {
+    display: flex;
+    gap: 40px;
+    padding-bottom: 16px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #5f5f5f;
+}
+
+.mypage-tab {
+    color: #5f5f5f;
+    font-size: 24px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.mypage-tab--active {
+    color: #ff0000;
+}
+
+.mypage-items {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 36px 24px;
+}
+
+.mypage-item-card__link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.mypage-item-card__image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    background-color: #d9d9d9;
+}
+
+.mypage-item-card__name {
+    margin: 8px 0 0;
+    font-size: 24px;
+}
+
+.mypage-empty-message {
+    grid-column: 1 / -1;
+    font-size: 20px;
 }

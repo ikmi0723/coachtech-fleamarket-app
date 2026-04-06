@@ -3,6 +3,20 @@
 @section('content')
 <div class="detail-wrapper">
 
+    {{-- エラーメッセージ表示 --}}
+    @if (session('error'))
+    <div class="flash-message flash-message--error">
+        {{ session('error') }}
+    </div>
+    @endif
+
+    {{-- 成功メッセージ表示 --}}
+    @if (session('message'))
+    <div class="flash-message flash-message--success">
+        {{ session('message') }}
+    </div>
+    @endif
+
     {{-- 商品詳細の上段：左に画像、右に商品情報を表示 --}}
     <div class="detail-container">
 
@@ -14,12 +28,20 @@
         {{-- 商品情報エリア --}}
         <div class="detail-content">
 
+            {{-- 追加：購入済みの場合は商品名の上に Sold を表示 --}}
+            @if ($item->purchase)
+            <div class="detail-sold-wrap">
+                <span class="item-detail__sold">Sold</span>
+            </div>
+            @endif
+
             {{-- 商品名・ブランド名 --}}
             <h1 class="detail-name">{{ $item->name }}</h1>
             <p class="detail-brand">{{ $item->brand }}</p>
 
             {{-- 価格 --}}
             <p class="detail-price">¥{{ number_format($item->price) }}（税込）</p>
+
 
             {{-- いいね数・コメント数表示エリア--}}
             <div class="detail-icons">

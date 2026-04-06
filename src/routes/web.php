@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StripeWebhookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,9 @@ Route::get('/', [ItemController::class, 'index']);
 
 // 商品詳細画面
 Route::get('/item/{item_id}', [ItemController::class, 'show']);
+
+// Stripe Webhook 受信
+Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle']);
 
 // 認証必須の機能
 Route::middleware('auth')->group(function () {
@@ -47,9 +51,19 @@ Route::middleware('auth')->group(function () {
     // 配送先変更保存
     Route::post('/purchase/address/{item_id}', [ItemController::class, 'updateAddress']);
 
+    // マイページ表示
+    Route::get('/mypage', [ProfileController::class, 'mypage']);
+
     // プロフィール編集画面表示
     Route::get('/mypage/profile', [ProfileController::class, 'edit']);
 
     // プロフィール更新
     Route::post('/mypage/profile', [ProfileController::class, 'update']);
+
+    // Stripe Checkout へ遷移
+    Route::post('/purchase/{item_id}/checkout', [ItemController::class, 'checkout']);
+
+    // Stripe Checkout からの戻り先
+    Route::get('/purchase/success/{item_id}', [ItemController::class, 'purchaseSuccess']);
+    Route::get('/purchase/cancel/{item_id}', [ItemController::class, 'purchaseCancel']);
 });

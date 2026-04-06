@@ -17,12 +17,13 @@
                 </div>
             </div>
 
-            <form action="{{ url('/purchase/' . $item->id) }}" method="POST" novalidate>
+            <form action="{{ url('/purchase/' . $item->id . '/checkout') }}" method="POST" novalidate>
                 @csrf
 
+                {{-- 支払い方法選択 --}}
                 <div class="purchase-section">
                     <label class="purchase-label">支払い方法</label>
-                    <select name="payment_method" class="purchase-select">
+                    <select name="payment_method" id="payment_method" class="purchase-select">
                         <option value="">選択してください</option>
                         <option value="convenience" {{ old('payment_method') === 'convenience' ? 'selected' : '' }}>コンビニ支払い</option>
                         <option value="card" {{ old('payment_method') === 'card' ? 'selected' : '' }}>カード支払い</option>
@@ -61,11 +62,47 @@
 
                 <div class="purchase-summary-row">
                     <span>支払い方法</span>
-                    <span>{{ old('payment_method') ? old('payment_method') : '未選択' }}</span>
+                    {{-- JavaScriptで即時反映させる表示欄 --}}
+                    <span id="payment_method_text">
+                        @if (old('payment_method') === 'convenience')
+                        コンビニ支払い
+                        @elseif (old('payment_method') === 'card')
+                        カード支払い
+                        @else
+                        未選択
+                        @endif
+                    </span>
                 </div>
             </div>
         </div>
 
     </div>
 </div>
+{{-- 支払い方法の即時反映用スクリプト --}}
+<script>
+    // 支払い方法のselect要素
+    const paymentMethodSelect = document.getElementById('payment_method');
+
+    // 右側の支払い方法表示欄
+    const paymentMethodText = document.getElementById('payment_method_text');
+
+    // valueを表示用テキストに変換する関数
+    function updatePaymentMethodText(value) {
+        if (value === 'convenience') {
+            paymentMethodText.textContent = 'コンビニ支払い';
+        } else if (value === 'card') {
+            paymentMethodText.textContent = 'カード支払い';
+        } else {
+            paymentMethodText.textContent = '未選択';
+        }
+    }
+
+    // プルダウン変更時に即時反映する
+    paymentMethodSelect.addEventListener('change', function() {
+        updatePaymentMethodText(this.value);
+    });
+
+    // 画面表示時にも現在の選択値を反映する
+    updatePaymentMethodText(paymentMethodSelect.value);
+</script>
 @endsection
