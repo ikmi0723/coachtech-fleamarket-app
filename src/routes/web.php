@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StripeWebhookController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +26,21 @@ Route::get('/item/{item_id}', [ItemController::class, 'show']);
 // Stripe Webhook 受信
 Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle']);
 
-// 認証必須の機能
-Route::middleware('auth')->group(function () {
+
+// メール認証完了時の遷移先を固定する
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    // メール認証を完了させる
+    $request->fulfill();
+
+    // 要件どおり、必ずプロフィール設定画面へ遷移させる
+    return redirect('/mypage/profile');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+
+// =========================
+// ログイン + メール認証必須の機能
+// =========================
+Route::middleware(['auth', 'verified'])->group(function () {
     // いいね登録・解除
     Route::post('/item/{item_id}/like', [ItemController::class, 'toggleLike']);
 

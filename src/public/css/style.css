@@ -983,3 +983,66 @@ body {
     grid-column: 1 / -1;
     font-size: 20px;
 }
+
+/* =========================
+   メール認証画面
+   ========================= */
+.verify-wrapper {
+    width: 100%;
+    padding: 150px 0 120px;
+}
+
+.verify-container {
+    width: 90%;
+    max-width: 820px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.verify-message {
+    margin: 0 0 36px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.7;
+    color: #000;
+}
+
+.verify-success-message {
+    margin: 0 0 20px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #ff5555;
+}
+
+.verify-button-area {
+    margin-bottom: 28px;
+}
+
+.verify-button {
+    display: inline-block;
+    min-width: 200px;
+    padding: 14px 22px;
+    border: 1px solid #5f5f5f;
+    border-radius: 8px;
+    background-color: #d9d9d9;
+    color: #000;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+}
+
+.verify-resend-form {
+    margin: 0;
+}
+
+.verify-resend-button {
+    border: none;
+    background: transparent;
+    color: #0073cc;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 0;
+}
