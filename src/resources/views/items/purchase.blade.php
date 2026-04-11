@@ -4,30 +4,39 @@
 <div class="purchase-wrapper">
     <div class="purchase-container">
 
-        {{-- 左側：商品情報 --}}
-        <div class="purchase-left">
-            <div class="purchase-item">
-                <div class="purchase-item-image">
-                    <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}">
-                </div>
+        <form action="{{ url('/purchase/' . $item->id . '/checkout') }}" method="POST" class="purchase-form" novalidate>
+            @csrf
 
-                <div class="purchase-item-info">
-                    <h1 class="purchase-item-name">{{ $item->name }}</h1>
-                    <p class="purchase-item-price">¥{{ number_format($item->price) }}</p>
-                </div>
-            </div>
+            {{-- 左側：商品情報 --}}
+            <div class="purchase-left">
+                <div class="purchase-item">
+                    <div class="purchase-item-image">
+                        <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}">
+                    </div>
 
-            <form action="{{ url('/purchase/' . $item->id . '/checkout') }}" method="POST" novalidate>
-                @csrf
+                    <div class="purchase-item-info">
+                        <h1 class="purchase-item-name">{{ $item->name }}</h1>
+                        <p class="purchase-item-price">¥{{ number_format($item->price) }}</p>
+                    </div>
+                </div>
 
                 {{-- 支払い方法選択 --}}
                 <div class="purchase-section">
-                    <label class="purchase-label">支払い方法</label>
-                    <select name="payment_method" id="payment_method" class="purchase-select">
-                        <option value="">選択してください</option>
-                        <option value="convenience" {{ old('payment_method') === 'convenience' ? 'selected' : '' }}>コンビニ支払い</option>
-                        <option value="card" {{ old('payment_method') === 'card' ? 'selected' : '' }}>カード支払い</option>
-                    </select>
+                    <div class="purchase-method-header">
+                        <p class="purchase-label">支払い方法</p>
+                    </div>
+
+                    <div class="purchase-method-body">
+                        <div class="purchase-select-wrap">
+                            <select name="payment_method" id="payment_method" class="purchase-select">
+                                <option value="">選択してください</option>
+                                <option value="convenience" {{ old('payment_method') === 'convenience' ? 'selected' : '' }}>コンビニ支払い</option>
+                                <option value="card" {{ old('payment_method') === 'card' ? 'selected' : '' }}>カード支払い</option>
+                            </select>
+                            <span class="purchase-select-arrow">▼</span>
+                        </div>
+                    </div>
+
                     @error('payment_method')
                     <p class="error">{{ $message }}</p>
                     @enderror
@@ -47,35 +56,33 @@
                         {{ $shippingAddress['building'] ?? '' }}
                     </p>
                 </div>
-
-                <button type="submit" class="purchase-submit-button">購入する</button>
-            </form>
-        </div>
-
-        {{-- 右側：購入情報まとめ --}}
-        <div class="purchase-right">
-            <div class="purchase-summary">
-                <div class="purchase-summary-row">
-                    <span>商品代金</span>
-                    <span>¥{{ number_format($item->price) }}</span>
-                </div>
-
-                <div class="purchase-summary-row">
-                    <span>支払い方法</span>
-                    {{-- JavaScriptで即時反映させる表示欄 --}}
-                    <span id="payment_method_text">
-                        @if (old('payment_method') === 'convenience')
-                        コンビニ支払い
-                        @elseif (old('payment_method') === 'card')
-                        カード支払い
-                        @else
-                        未選択
-                        @endif
-                    </span>
-                </div>
             </div>
-        </div>
 
+            {{-- 右側：購入情報まとめ --}}
+            <div class="purchase-right">
+                <div class="purchase-summary">
+                    <div class="purchase-summary-row">
+                        <span>商品代金</span>
+                        <span>¥{{ number_format($item->price) }}</span>
+                    </div>
+
+                    <div class="purchase-summary-row">
+                        <span>支払い方法</span>
+                        {{-- JavaScriptで即時反映させる表示欄 --}}
+                        <span id="payment_method_text">
+                            @if (old('payment_method') === 'convenience')
+                            コンビニ支払い
+                            @elseif (old('payment_method') === 'card')
+                            カード支払い
+                            @else
+                            未選択
+                            @endif
+                        </span>
+                    </div>
+                </div>
+                <button type="submit" class="purchase-submit-button">購入する</button>
+            </div>
+        </form>
     </div>
 </div>
 {{-- 支払い方法の即時反映用スクリプト --}}

@@ -10,7 +10,7 @@
 
             {{-- 商品画像 --}}
             <div class="sell-section">
-                <h2 class="sell-section-title">商品画像</h2>
+                <h2 class="sell-image-title">商品画像</h2>
 
                 <div class="sell-image-box">
                     <label class="sell-image-button">
@@ -49,13 +49,17 @@
 
                 <div class="sell-form-group">
                     <label class="sell-label">商品の状態</label>
-                    <select name="condition" class="sell-select">
-                        <option value="">選択してください</option>
-                        <option value="良好" {{ old('condition') === '良好' ? 'selected' : '' }}>良好</option>
-                        <option value="目立った傷や汚れなし" {{ old('condition') === '目立った傷や汚れなし' ? 'selected' : '' }}>目立った傷や汚れなし</option>
-                        <option value="やや傷や汚れあり" {{ old('condition') === 'やや傷や汚れあり' ? 'selected' : '' }}>やや傷や汚れあり</option>
-                        <option value="状態が悪い" {{ old('condition') === '状態が悪い' ? 'selected' : '' }}>状態が悪い</option>
-                    </select>
+                    <div class="sell-select-wrap">
+                        <select name="condition" class="sell-select">
+                            <option value="">選択してください</option>
+                            <option value="良好" {{ old('condition') === '良好' ? 'selected' : '' }}>良好</option>
+                            <option value="目立った傷や汚れなし" {{ old('condition') === '目立った傷や汚れなし' ? 'selected' : '' }}>目立った傷や汚れなし</option>
+                            <option value="やや傷や汚れあり" {{ old('condition') === 'やや傷や汚れあり' ? 'selected' : '' }}>やや傷や汚れあり</option>
+                            <option value="状態が悪い" {{ old('condition') === '状態が悪い' ? 'selected' : '' }}>状態が悪い</option>
+                        </select>
+                        <span class="sell-select-arrow">▼</span>
+                    </div>
+
                     @error('condition')
                     <p class="error">{{ $message }}</p>
                     @enderror
@@ -89,7 +93,10 @@
 
                 <div class="sell-form-group">
                     <label class="sell-label">販売価格</label>
-                    <input type="text" name="price" class="sell-input" value="{{ old('price') }}">
+                    <div class="sell-price-wrap">
+                        <span class="sell-price-mark">¥</span>
+                        <input type="text" name="price" class="sell-input sell-price-input" value="{{ old('price') }}">
+                    </div>
                     @error('price')
                     <p class="error">{{ $message }}</p>
                     @enderror

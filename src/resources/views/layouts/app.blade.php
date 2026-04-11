@@ -14,7 +14,9 @@
         <div class="header-inner">
             {{-- ロゴ --}}
             <div class="logo">
-                <img src="{{ asset('images/logo.png') }}" alt="COACHTECH">
+                <a href="{{ url('/') }}">
+                    <img src="{{ asset('images/logo.png') }}" alt="COACHTECH">
+                </a>
             </div>
 
             {{-- 商品検索フォーム --}}
